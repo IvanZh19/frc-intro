@@ -1,15 +1,47 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.subsystems.drivetrain.Drivetrain;
+
 
 public class StandardAuto extends SequentialCommandGroup {
-    // put subsystem definitions here
+    Drivetrain drivetrain;
 
-    public StandardAuto(/*  put subsystems arguments here  */){
+    public StandardAuto(Drivetrain drivetrain){
 
-        addCommands(/*  put your procedure of commands here  */);
+        addCommands(
+            new ParallelRaceGroup(
+                new DriveForward(drivetrain),
+                new WaitCommand(2)
+            ),
 
-        addRequirements(/*  put subsystems here  */);
+            new ParallelRaceGroup(
+                new TurnSomeAngle(drivetrain),
+                new WaitCommand(2)
+            ),
+            //hopefully 90 degrees
+
+            new ParallelRaceGroup(
+                new DriveForward(drivetrain),
+                new WaitCommand(2)
+            ),
+
+            new ParallelRaceGroup(
+                new TurnSomeAngle(drivetrain),
+                new WaitCommand(2)
+            ),
+            //hopefully 90 degrees
+
+            new ParallelRaceGroup(
+                new DriveForward(drivetrain),
+                new WaitCommand(2)
+            ),
+
+        );
+
+        addRequirements(drivetrain);
 
     }
 
