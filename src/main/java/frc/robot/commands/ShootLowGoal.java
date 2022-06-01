@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.turret.Turret;
+import java.lang.Thread;
 
 public class ShootLowGoal extends Commandbase {
 
@@ -20,5 +21,7 @@ public class ShootLowGoal extends Commandbase {
     public void execute(){
         turret.setAngle(5);
         turret.shootBall(1.0);
+        Thread.sleep(1000);
+        turret.stop();
     }
 }
